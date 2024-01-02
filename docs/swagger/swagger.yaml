@@ -1,0 +1,110 @@
+openapi: 3.0.0
+info:
+  title: Music Tracks API
+  description: API for storing and retrieving music track metadata
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Local development server
+paths:
+  /tracks:
+    post:
+      summary: Create a new track
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                isrc:
+                  type: string
+                  description: International Standard Recording Code
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MusicTrack'
+        '400':
+          description: Bad request
+    get:
+      summary: Retrieve all tracks
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MusicTrack'
+        '404':
+          description: Not found
+
+  /tracks/{isrc}:
+    get:
+      summary: Retrieve a track by ISRC
+      parameters:
+        - in: path
+          name: isrc
+          required: true
+          description: International Standard Recording Code
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MusicTrack'
+        '404':
+          description: Not found
+
+  /tracks?artist={artistName}:
+    get:
+      summary: Retrieve tracks by artist name
+      parameters:
+        - in: path
+          name: artistName
+          required: true
+          description: Artist name
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MusicTrack'
+        '404':
+          description: Not found
+
+components:
+  schemas:
+    MusicTrack:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Track ID
+        isrc:
+          type: string
+          description: International Standard Recording Code
+        title:
+          type: string
+          description: Track title
+        uri:
+          type: string
+          description: Track image URI
+        artists:
+          type: array
+          items:
+            type: string
+          description: List of artists
+        # Other properties of MusicTrack

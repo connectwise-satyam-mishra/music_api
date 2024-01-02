@@ -1,0 +1,8 @@
+{
+    "clientid":"74bb711c708f402c9dd4318b9561ada5",
+    "client_secret": "6f5781ec8baf45fb8d02997afdfce85c",
+    "app_name": "LTI_TEST",
+    "spotify_api_url": "https://api.spotify.com",
+    "spotify_auth_url": "https://accounts.spotify.com",
+    "app_url": "http://localhost:8081"
+}
